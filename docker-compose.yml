@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    container_name: cat-facts-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+    networks:
+      - cat-network
+
+  frontend:
+    build: ./frontend
+    container_name: cat-facts-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - cat-network
+
+networks:
+  cat-network:
+    driver: bridge
